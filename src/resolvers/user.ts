@@ -3,6 +3,7 @@ import { User } from "../entity/user";
 
 import { hashSync } from 'bcrypt'
 import { Length } from "class-validator";
+import { UserResponse } from "../graphql-types/UserResponse";
 
 @InputType()
 class UserRegisterInput {
@@ -27,12 +28,37 @@ export class UserResolver {
         return User.find();
     }
 
-    @Mutation(() => User)
+    @Query(() => User)
+    async userById(
+        @Arg('id') id: string
+    ) {
+
+        console.log(id)
+
+        return await User.findOne({
+            _id: id
+        });
+    }
+
+    @Mutation(() => UserResponse)
     async register(
         @Arg('options') options: UserRegisterInput
     ) {
 
-        const emailExists = await User.findOne({ emailAddress: options.emailAddress.toLowerCase() })
+        const emailAddress = options.emailAddress.toLowerCase();
+
+        const emailExists = await User.findOne({ emailAddress: emailAddress });
+
+        if(emailExists) {
+            return {
+                errors: [
+                    {
+                        path: "email",
+                        message: "already exists"
+                    }
+                ]
+            }
+        }
 
         const user = await User.create({
             username: options.username.toLowerCase(),
@@ -45,9 +71,14 @@ export class UserResolver {
 
     @Mutation(() => Boolean)
     async delete(
-        @Arg('_id') _id: String
+        @Arg('_id') _id: string
     ) {
         
+        const result = await User.delete({
+            _id: _id
+        })
+
+        console.log(result)
 
         return true;
     }
