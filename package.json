@@ -1,0 +1,31 @@
+{
+  "name": "graphql-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server-express": "^2.16.1",
+    "bcrypt": "^5.0.0",
+    "class-validator": "^0.12.2",
+    "express": "^4.17.1",
+    "graphql": "15.3.0",
+    "mongoose": "^5.10.0",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.0.0",
+    "typeorm": "^0.2.25",
+    "typescript": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/mongoose": "^5.7.36",
+    "@types/node": "^14.6.0",
+    "ts-node": "^9.0.0"
+  },
+  "scripts": {
+    "watch": "tsc -w",
+    "dev": "nodemon ./src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "description": ""
+}
