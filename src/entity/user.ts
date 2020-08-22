@@ -1,3 +1,4 @@
+import { IsEmail, IsString } from "class-validator";
 import { Field, ID, ObjectType } from "type-graphql";
 import { BaseEntity, Column, Entity, ObjectID, ObjectIdColumn } from "typeorm";
 
@@ -13,12 +14,13 @@ export class User extends BaseEntity {
     @Column()
     username: string;
 
-    @Field()
     @Column()
+    @IsString()
     password: string;
 
     @Field()
     @Column()
+    @IsEmail()
     emailAddress: string;
 
 }
